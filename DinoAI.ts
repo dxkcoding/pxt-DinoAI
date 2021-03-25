@@ -89,11 +89,11 @@ namespace DinoAI{
     }
 
     /**
-     * @param invert 是否镜面显示， `True` 或者 `False`
+     * @param invert LcdInvert
      */
     //% blockId=DinoAI_lcd_mirror block="DinoAI lcd micrror %invert"
     //% group="Basic" weight=95
-    export function DinoAI_lcd_mirror(invert: boolean): void {
+    export function DinoAI_lcd_mirror(invert: LcdInvert): void {
         let str = `K6 ${invert}` 
         serial.writeLine(str)
     }
