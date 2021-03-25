@@ -3,7 +3,12 @@
 namespace DinoAI{
 
 
-
+    export enum LcdInvert {
+        //% block=True
+        True = 1,
+        //% block=False
+        False  = 0,
+    }
 
     function asyncWrite(msg: string, evt: number): void {
         serial.writeLine(msg)
