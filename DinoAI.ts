@@ -33,7 +33,7 @@ namespace DinoAI{
      * @param name jpeg to display; eg: name.jpg
      */
     //% blockId=DinoAI_display block="DinoAI Display %name"
-    //% group="Basic" weight=94 blockGap=40
+    //% group="Basic" weight=99 blockGap=40
     export function DinoAI_display(name: string): void {
         let str = `K1 ${name}`
         serial.writeLine(str)
@@ -43,7 +43,7 @@ namespace DinoAI{
      * @param name savepath; eg: name.jpg
      */
     //% blockId=DinoAI_screenshot block="DinoAI Screenshot %name"
-    //% group="Basic" weight=95
+    //% group="Basic" weight=98
     export function DinoAI_screenshot(name: string): void {
         let str = `K2 ${name}`
         serial.writeLine(str)
@@ -53,7 +53,7 @@ namespace DinoAI{
      * @param (R,G,B): RGB8888 color
      */
     //% blockId=DinoAI_clear_setcolor block="DinoAI clear || and set color %R %G %B"
-    //% group="Basic" weight=95
+    //% group="Basic" weight=97
     export function DinoAI_clear_setcolor(R: number=0, G: number=0, B: number=0): void {
         let str = `K3 ${R} ${G} ${B}`
         serial.writeLine(str)
@@ -66,13 +66,32 @@ namespace DinoAI{
     //% blockId=DinoAI_print block="DinoAI print %t X %x Y %y||delay %d ms"
     //% x.min=0 x.max=240
     //% y.min=0 y.max=240
-    //% group="Basic" weight=97
+    //% group="Basic" weight=96
     export function DinoAI_print(t: string, x: number,y: number, d:number=1000): void {
         let str = `K4 ${x} ${y} ${d} ${t}`
         serial.writeLine(str)
     }
 
+    /**
+     * @param dir 取值范围 [0,3]， 从`0`到`3`依次顺时针旋转
+     */
+    //% blockId=DinoAI_lcd_rotation block="DinoAI lcd rotation %dir"
+    //% dir.min=0 dir.max=3
+    //% group="Basic" weight=95
+    export function DinoAI_lcd_rotation(dir: number): void {
+        let str = `K5 ${dir}` 
+        serial.writeLine(str)
+    }
 
+    /**
+     * @param invert 是否镜面显示， `True` 或者 `False`
+     */
+    //% blockId=DinoAI_lcd_mirror block="DinoAI lcd micrror %invert"
+    //% group="Basic" weight=95
+    export function DinoAI_lcd_mirror(invert: boolean): void {
+        let str = `K6 ${invert}` 
+        serial.writeLine(str)
+    }
 
     
 }
