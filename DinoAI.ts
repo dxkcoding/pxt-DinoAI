@@ -78,7 +78,7 @@ namespace DinoAI{
     }
 
     /**
-     * @param dir 取值范围 [0,3]， 从`0`到`3`依次顺时针旋转
+     * @param dir 
      */
     //% blockId=DinoAI_lcd_rotation block="DinoAI lcd rotation %dir"
     //% dir.min=0 dir.max=3
