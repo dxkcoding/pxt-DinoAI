@@ -28,7 +28,7 @@ namespace DinoAI{
         serial.setTxBufferSize(64)
         serial.setRxBufferSize(64)
         serial.readString()
-        serial.writeString('\n\n')
+        // serial.writeString('\n\n')
         // take control of the ext serial port from k210
         asyncWrite(`K0`, 0)
         basic.pause(300)
@@ -57,10 +57,10 @@ namespace DinoAI{
     /**
      * @param (R,G,B): RGB8888 color
      */
-    //% blockId=DinoAI_clear_setcolor block="DinoAI clear || and set color %R %G %B"
+    //% blockId=DinoAI_clear block="DinoAI clear"
     //% group="Basic" weight=97
-    export function DinoAI_clear_setcolor(R: number=0, G: number=0, B: number=0): void {
-        let str = `K3 ${R} ${G} ${B}`
+    export function DinoAI_clear(): void {
+        let str = `K3`
         serial.writeLine(str)
     }
 
