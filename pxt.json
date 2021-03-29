@@ -11,7 +11,8 @@
         "README.md",
         "main.blocks",
         "main.ts",
-        "DinoAI.ts"
+        "DinoAI.ts",
+        "_locals/zh/DinoAI-strings.json"
     ],
     "testFiles": [
         "test.ts"
