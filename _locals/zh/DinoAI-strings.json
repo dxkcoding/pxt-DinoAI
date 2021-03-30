@@ -29,11 +29,11 @@
     "Animation_Type.Chameleon|block": "变色龙",
     "Animation_Type.Confetti|block": "五彩缤纷",*/
     "DinoAI|block": "DinoAI模块",
-    "DinoAI.ai_init|block": "【基础】AI模块初始化",
+    "DinoAI.DinoAI init|block": "【基础】AI模块初始化",
     "DinoAI.DinoAI_display|block": "【基础】显示图片 %name",
     "DinoAI.DinoAI_screenshot|block": "【基础】拍摄照片并保存为 %name",
     "DinoAI.DinoAI_clear|block": "【基础】清空屏幕",
-    "DinoAI.DinoAI_print|block": "【基础】打印文字 %",
+    "DinoAI.DinoAI_print|block": "【基础】打印文字 %t 位置 %x %y 延迟 %d (毫秒)",
     "dxktest.getHandleAxis|block": "【游戏手柄】获取 %slot %handle_axis",
     "dxktest.getDistance|block": "【超声波测距】获取 %slot 距离（cm）",
     "dxktest.getBMPData|block": "【海拔大气压强模块】获取 %slot %bmpdatatype",

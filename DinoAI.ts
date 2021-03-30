@@ -1,7 +1,8 @@
 //% color="#5c7cfa" weight=10 icon="\u07DC"
 //% groups='["Basic", "Graphic"]'
 namespace DinoAI{
-
+    type Evttxt = (txt: string) => void
+    let qrcodeEvt: Evttxt = null
 
     export enum LcdInvert {
         //% block=True
@@ -9,6 +10,28 @@ namespace DinoAI{
         //% block=False
         False  = 0,
     }
+
+    function trim(n: string): string {
+        while (n.charCodeAt(n.length - 1) < 0x1f) {
+        n = n.slice(0, n.length - 1)
+        }
+        return n
+    }
+
+    serial.onDataReceived('\n', function () {
+        let a = serial.readUntil('\n')
+        if (a.charAt(0) == 'K') {
+        a = trim(a)
+        let b = a.slice(1, a.length).split(' ')
+        let cmd = parseInt(b[0])
+            if (cmd == 20){// qrcode return
+                if (qrcodeEvt) {
+                    qrcodeEvt(b[1])
+                }
+            }
+        }
+    })
+
 
     function asyncWrite(msg: string, evt: number): void {
         serial.writeLine(msg)
@@ -20,7 +43,7 @@ namespace DinoAI{
      * Tx pin: SerialPin.P0
      * Rx pin: SerialPin.P1
      **/
-    //% blockId=ai_init block="DinoAI init"
+    //% blockId=dinoai_init block="DinoAI init"
     //% group="Basic" weight=100
     export function dinoai_init(): void {
         serial.redirect(SerialPin.P0, SerialPin.P1, BaudRate.BaudRate115200)
@@ -54,9 +77,6 @@ namespace DinoAI{
         serial.writeLine(str)
     }
 
-    /**
-     * @param (R,G,B): RGB8888 color
-     */
     //% blockId=DinoAI_clear block="DinoAI clear"
     //% group="Basic" weight=97
     export function DinoAI_clear(): void {
@@ -68,12 +88,12 @@ namespace DinoAI{
      * @param t string to display; eg: hello
      * @param d delay; eg: 1000
      */
-    //% blockId=DinoAI_print block="DinoAI print %t X %x Y %y||delay %d ms"
+    //% blockId=DinoAI_print block="DinoAI print %t X %x Y %y"
     //% x.min=0 x.max=240
     //% y.min=0 y.max=240
     //% group="Basic" weight=96
-    export function DinoAI_print(t: string, x: number,y: number, d:number=1000): void {
-        let str = `K4 ${x} ${y} ${d} ${t}`
+    export function DinoAI_print(t: string, x: number,y: number): void {
+        let str = `K4 ${x} ${y} ${t}`
         serial.writeLine(str)
     }
 
@@ -95,6 +115,29 @@ namespace DinoAI{
     //% group="Basic" weight=95
     export function DinoAI_lcd_mirror(invert: LcdInvert): void {
         let str = `K6 ${invert}` 
+        serial.writeLine(str)
+    }
+
+    //% blockId=dinoai_qrcode block="DinoAI QR code"
+    //% group="Graphic" weight=94
+    export function koi_qrcode() {
+        let str = `K20`
+        serial.writeLine(str)
+    }
+
+    //% blockId=dinoai_onqrcode block="on QR code"
+    //% group="Graphic" weight=93 draggableParameters=reporter blockGap=40
+    export function koi_onqrcode(handler: (link: string) => void) {
+        qrcodeEvt = handler
+    }
+
+    /**
+     * @param key color key; eg: red
+     */
+    //% blockId=koi_colorcali block="KOI color calibration %key"
+    //% group="Graphic" weight=76
+    export function koi_colorcali(key: string) {
+        let str = `K16 ${key}`
         serial.writeLine(str)
     }
 
