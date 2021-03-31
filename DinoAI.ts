@@ -1,14 +1,32 @@
 //% color="#5c7cfa" weight=10 icon="\u07DC"
-//% groups='["Basic", "Graphic"]'
+//% groups='["Basic", "Graphic", "Model"]'
 namespace DinoAI{
     type Evttxt = (txt: string) => void
+    type Evtxywh = (x: number, y: number, w: number, h: number) => void
+    type Evtxyr = (x: number, y: number, r: number) => void
     let qrcodeEvt: Evttxt = null
+    let colorblobEvt: Evtxywh = null
+    let circleEvt: Evtxyr = null
+    let rectEvt: Evtxywh = null
 
     export enum LcdInvert {
         //% block=True
         True = 1,
         //% block=False
-        False  = 0,
+        False  = 0
+    }
+
+    export enum ColorChoice {
+        //% block=Red
+        Red = 0,
+        //% block=Green
+        Green  = 1,
+        //% block=Blue
+        Blue  = 2,
+        //% block=Orange
+        Orange = 3,
+        //% block=Yellow
+        Yellow = 4
     }
 
     function trim(n: string): string {
@@ -27,6 +45,24 @@ namespace DinoAI{
             if (cmd == 20){// qrcode return
                 if (qrcodeEvt) {
                     qrcodeEvt(b[1])
+                }
+            }else 
+            if (cmd == 21){// colorblob return
+                if (colorblobEvt){
+                    colorblobEvt(parseInt(b[1]),parseInt(b[2]),
+                                parseInt(b[3]),parseInt(b[4]))
+                }
+            }else
+            if (cmd == 22){
+                if (circleEvt){// circle_track return
+                    circleEvt(parseInt(b[1]),parseInt(b[2]),
+                                parseInt(b[3]))
+                }
+            }else 
+            if (cmd == 23){// rectangle_track return
+                if (rectEvt){
+                    rectEvt(parseInt(b[1]),parseInt(b[2]),
+                                parseInt(b[3]),parseInt(b[4]))
                 }
             }
         }
@@ -118,28 +154,73 @@ namespace DinoAI{
         serial.writeLine(str)
     }
 
-    //% blockId=dinoai_qrcode block="DinoAI QR code"
-    //% group="Graphic" weight=94
-    export function koi_qrcode() {
+    //% blockId=DinoAI_qrcode block="DinoAI QR code"
+    //% group="Graphic" weight=79
+    export function DinoAI_qrcode() {
         let str = `K20`
         serial.writeLine(str)
     }
 
-    //% blockId=dinoai_onqrcode block="on QR code"
-    //% group="Graphic" weight=93 draggableParameters=reporter blockGap=40
-    export function koi_onqrcode(handler: (link: string) => void) {
+    //% blockId=DinoAI_onqrcode block="on QR code"
+    //% group="Graphic" weight=78 draggableParameters=reporter blockGap=40
+    export function DinoAI_onqrcode(handler: (link: string) => void) {
         qrcodeEvt = handler
     }
 
+
     /**
-     * @param key color key; eg: red
+     * @param c ColorChoice
      */
-    //% blockId=koi_colorcali block="KOI color calibration %key"
-    //% group="Graphic" weight=76
-    export function koi_colorcali(key: string) {
-        let str = `K16 ${key}`
+    //% blockId=DinoAI_track_colorblob block="DinoAI track color blob %c"
+    //% group="Graphic" weight=77
+    export function DinoAI_track_colorblob(c: ColorChoice): void {
+        let str = `K21 ${c}`
         serial.writeLine(str)
     }
 
+    //% blockId=DinoAI_oncolorblob block="on Color blob"
+    //% group="Graphic" weight=76 draggableParameters=reporter blockGap=40
+    export function DinoAI_oncolorblob(
+        handler: (x: number, y: number, w: number, h: number) => void
+    ) {
+        colorblobEvt = handler
+    }
+
+    /**
+     * @param th threshold; eg: 2000
+     */
+    //% blockId=DinoAI_track_circle block="DinoAI track circle threshold%th"
+    //% group="Graphic" weight=75
+    export function DinoAI_track_circle(th: number): void {
+        let str = `K22 ${th}`
+        serial.writeLine(str)
+
+    }
+
+    //% blockId=DinoAI_oncircletrack block="on Find Circle"
+    //% group="Graphic" weight=74 draggableParameters=reporter blockGap=40
+    export function DinoAI_oncircletrack(
+        handler: (x: number, y: number, r: number) => void
+    ) {
+        circleEvt = handler
+    }
+
+    /**
+     * @param th threshold; eg: 6000
+     */
+    //% blockId=DinoAI_track_rect block="DinoAI track rectangle %th"
+    //% group="Graphic" weight=73
+    export function DinoAI_track_rect(th: number): void {
+        let str = `K23 ${th}`
+        serial.writeLine(str)
+    }
+
+    //% blockId=DinoAI_onrecttrack block="on Find Rectangle"
+    //% group="Graphic" weight=72 draggableParameters=reporter blockGap=40
+    export function DinoAI_onrecttrack(
+        handler: (x: number, y: number, w: number, h: number) => void
+    ) {
+        rectEvt = handler
+    }
     
 }
