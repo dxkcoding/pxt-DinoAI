@@ -81,7 +81,7 @@ namespace DinoAI{
      **/
     //% blockId=dinoai_init block="DinoAI init"
     //% group="Basic" weight=100
-    export function dinoai_init(): void {
+    export function DinoAI_init(): void {
         serial.redirect(SerialPin.P0, SerialPin.P1, BaudRate.BaudRate115200)
         basic.pause(100)
         serial.setTxBufferSize(64)
