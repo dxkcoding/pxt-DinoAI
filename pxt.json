@@ -12,7 +12,7 @@
         "main.blocks",
         "main.ts",
         "DinoAI.ts",
-        "_locales/zh/DinoAI-strings.json"
+        "_locales/zh-cn/DinoAI-strings.json"
     ],
     "testFiles": [
         "test.ts"
