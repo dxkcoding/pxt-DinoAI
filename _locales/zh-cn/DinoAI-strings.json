@@ -8,10 +8,18 @@
     "ColorChoice.Yellow|block": "黄色",
     "DinoAI|block": "DinoAI模块",
     "DinoAI.DinoAI_init|block": "【基础】AI模块初始化",
-    "DinoAI.DinoAI_display|block": "【基础】显示图片 %name",
-    "DinoAI.DinoAI_screenshot|block": "【基础】拍摄照片并保存为 %name",
+    "DinoAI.DinoAI_display|block": "【基础】显示图片%name",
+    "DinoAI.DinoAI_screenshot|block": "【基础】拍摄照片并保存为%name",
     "DinoAI.DinoAI_clear|block": "【基础】清空屏幕",
-    "DinoAI.DinoAI_print|block": "【基础】打印文字 %t 位置 %x %y",
-    "DinoAI.DinoAI_lcd_rotation|block": "【基础】旋转lcd屏幕 参数：%dir",
-    "DinoAI.DinoAI_lcd_mirror|block": "【基础】设置lcd屏幕镜像 %invert"
+    "DinoAI.DinoAI_print|block": "【基础】打印文字%t 位置%x%y",
+    "DinoAI.DinoAI_lcd_rotation|block": "【基础】旋转lcd屏幕 参数:%dir",
+    "DinoAI.DinoAI_lcd_mirror|block": "【基础】设置lcd屏幕镜像%invert",
+    "DinoAI.DinoAI_qrcode|block": "【图形】二维码扫描",
+    "DinoAI.DinoAI_onqrcode|block": "【图形】扫描到二维码",
+    "DinoAI.DinoAI_track_colorblob|block": "【图形】色块跟踪%c",
+    "DinoAI.DinoAI_oncolorblob|block": "【图形】检测到色块",
+    "DinoAI.DinoAI_track_circle|block": "【图形】圆形跟踪 阈值%th",
+    "DinoAI.DinoAI_oncircletrack|block": "【图形】检测到圆形",
+    "DinoAI.DinoAI_track_rect|block": "【图形】矩形跟踪 阈值%th",
+    "DinoAI.DinoAI_onrecttrack|block": "【图形】检测到矩形"
 }
