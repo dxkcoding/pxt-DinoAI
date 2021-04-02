@@ -1,13 +1,18 @@
 //% color="#5c7cfa" weight=10 icon="\u07DC"
-//% groups='["Basic", "Graphic", "Model"]'
+//% groups='["Basic", "Graphic", "Model", "Classifier"]'
 namespace DinoAI{
     type Evttxt = (txt: string) => void
     type Evtxywh = (x: number, y: number, w: number, h: number) => void
     type Evtxyr = (x: number, y: number, r: number) => void
+    type Evtd = (d: number) => void
+    type Evtxy = (x: number, y: number) => void
     let qrcodeEvt: Evttxt = null
     let colorblobEvt: Evtxywh = null
     let circleEvt: Evtxyr = null
     let rectEvt: Evtxywh = null
+    let maskEvt: Evtd = null
+    let faceEvt: Evtxy = null
+    let mnistEvt: Evtd = null
 
     export enum LcdInvert {
         //% block=True
@@ -27,6 +32,17 @@ namespace DinoAI{
         Orange = 3,
         //% block=Yellow
         Yellow = 4
+    }
+
+    export enum ModelChoice {
+        //% block=Mask_detect
+        Mask_detect = 0,
+        //% block=Face_detect
+        Face_detect  = 1,
+        //% block=MNIST
+        MNIST  = 2,
+        //% block=Classifier
+        Classifier = 3
     }
 
     function trim(n: string): string {
@@ -49,20 +65,35 @@ namespace DinoAI{
             }else 
             if (cmd == 21){// colorblob return
                 if (colorblobEvt){
-                    colorblobEvt(parseInt(b[1]),parseInt(b[2]),
-                                parseInt(b[3]),parseInt(b[4]))
+                    colorblobEvt(parseInt(b[1]), parseInt(b[2]),
+                                parseInt(b[3]), parseInt(b[4]))
                 }
             }else
             if (cmd == 22){
                 if (circleEvt){// circle_track return
-                    circleEvt(parseInt(b[1]),parseInt(b[2]),
+                    circleEvt(parseInt(b[1]), parseInt(b[2]),
                                 parseInt(b[3]))
                 }
             }else 
             if (cmd == 23){// rectangle_track return
                 if (rectEvt){
-                    rectEvt(parseInt(b[1]),parseInt(b[2]),
-                                parseInt(b[3]),parseInt(b[4]))
+                    rectEvt(parseInt(b[1]), parseInt(b[2]),
+                                parseInt(b[3]), parseInt(b[4]))
+                }
+            }else 
+            if (cmd == 41){//  mask detect return
+                if (maskEvt){
+                    maskEvt(parseInt(b[1]))
+                }
+            }else 
+            if (cmd == 42){// face detect return
+                if (faceEvt){
+                    faceEvt(parseInt(b[1]), parseInt(b[2]))
+                }
+            }else 
+            if (cmd == 43){// handwritten digits recognize return
+                if (mnistEvt){
+                    mnistEvt(parseInt(b[1]))
                 }
             }
         }
@@ -222,5 +253,59 @@ namespace DinoAI{
     ) {
         rectEvt = handler
     }
+
+    /**
+     * @param addr ModelChoice: model address
+     */
+    //% blockId=DinoAI_load_model block="DinoAI load model %addr"
+    //% group="Model" weight=60
+    export function DinoAI_load_model(addr: ModelChoice): void {
+        let str = `K40 ${addr}`
+        serial.writeLine(str)
+    }
+
+    //% blockId=DinoAI_mask_detect block="DinoAI mask detect"
+    //% group="Model" weight=59
+    export function DinoAI_mask_detect(): void {
+        let str = `K41`
+        serial.writeLine(str)
+    }
     
+    //% blockId=DinoAI_onmaskdetect block="on detect mask [-1:without; 0:null; 1:with]"
+    //% group="Model" weight=58 draggableParameters=reporter blockGap=40
+    export function DinoAI_onmaskdetect(
+        handler: (m: number) => void
+    ) {
+        maskEvt = handler
+    }
+
+    //% blockId=DinoAI_face_detect block="DinoAI face detect"
+    //% group="Model" weight=57
+    export function DinoAI_face_detect(): void {
+        let str = `K42`
+        serial.writeLine(str)
+    }
+    
+    //% blockId=DinoAI_onfacedetect block="on detect face"
+    //% group="Model" weight=56 draggableParameters=reporter blockGap=40
+    export function DinoAI_onfacedetect(
+        handler: (x: number, y: number) => void
+    ) {
+        faceEvt = handler
+    }
+
+    //% blockId=DinoAI_handwritten_digits_recognize block="DinoAI handwritten digits recognize"
+    //% group="Model" weight=55
+    export function DinoAI_handwritten_digits_recognize(): void {
+        let str = `K43`
+        serial.writeLine(str)
+    }
+    
+    //% blockId=DinoAI_ondigitsrec block="on recognize handwritten digits"
+    //% group="Model" weight=54 draggableParameters=reporter blockGap=40
+    export function DinoAI_ondigitsrec(
+        handler: (d: number) => void
+    ) {
+        mnistEvt = handler
+    }
 }
