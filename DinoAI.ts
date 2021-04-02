@@ -60,7 +60,7 @@ namespace DinoAI{
         let cmd = parseInt(b[0])
             if (cmd == 20){// qrcode return
                 if (qrcodeEvt) {
-                    qrcodeEvt(b[1])
+                    qrcodeEvt(a.slice(5, -1))
                 }
             }else 
             if (cmd == 21){// colorblob return
