@@ -56,7 +56,7 @@ namespace DinoAI{
         let a = serial.readUntil('\n')
         if (a.charAt(1) == 'K') {
             a = trim(a)
-        let b = a.slice(1, a.length).split(' ')
+        let b = a.slice(2, a.length).split(' ')
         let cmd = parseInt(b[0])
             if (cmd == 20){// qrcode return
                 if (qrcodeEvt) {
