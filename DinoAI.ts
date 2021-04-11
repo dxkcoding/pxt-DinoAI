@@ -28,10 +28,8 @@ namespace DinoAI{
         Green  = 1,
         //% block=Blue
         Blue  = 2,
-        //% block=Orange
-        Orange = 3,
         //% block=Yellow
-        Yellow = 4
+        Yellow = 3
     }
 
     export enum ModelChoice {
