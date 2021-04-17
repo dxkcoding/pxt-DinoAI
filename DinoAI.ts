@@ -13,6 +13,7 @@ namespace DinoAI{
     let maskEvt: Evtd = null
     let faceEvt: Evtxy = null
     let mnistEvt: Evtd = null
+    let classifierOutputEvt: Evttxt = null
 
     export enum LcdInvert {
         //% block=True
@@ -305,5 +306,86 @@ namespace DinoAI{
         handler: (d: number) => void
     ) {
         mnistEvt = handler
+    }
+
+    /**
+     * @param n number: set number
+     */
+    //% blockId=DinoAI_classifier_config_setnumber block="DinoAI config Classifier: set number %n"
+    //% group="Classifier" weight=40
+    //% n.min = 1 n.max = 5
+    export function DinoAI_classifier_config_setnumber(n:number): void {
+        let str = `K80 ${n}`
+        serial.writeLine(str)
+    }
+
+    /**
+     * @param n number: sample number
+     */
+    //% blockId=DinoAI_classifier_config_samplenumber block="DinoAI config Classifier: sample number %n"
+    //% group="Classifier" weight=39
+    //% n.min = 1 n.max = 5
+    export function DinoAI_classifier_config_samplenumber(n:number): void {
+        let str = `K81 ${n}`
+        serial.writeLine(str)
+    }
+
+    /**
+     * @param t list: tag list
+     */
+    //% blockId=DinoAI_classifier_config_addtag block="DinoAI config Classifier: add tag %t"
+    //% group="Classifier" weight=38
+    export function DinoAI_classifier_config_addtag(t:string[]): void {
+        let str = `K82 ${t}`
+        serial.writeLine(str)
+    }
+
+    //% blockId=DinoAI_classifier_snapshot block="DinoAI Classifier snapshot"
+    //% group="Classifier" weight=36
+    export function DinoAI_classifier_snapshot(): void {
+        let str = `K83`
+        serial.writeLine(str)
+    }
+
+    //% blockId=DinoAI_classifier_train block="DinoAI Classifier train"
+    //% group="Classifier" weight=35
+    export function DinoAI_classifier_train(): void {
+        let str = `K84`
+        serial.writeLine(str)
+    }
+
+    //% blockId=DinoAI_classifier_predict block="DinoAI Classifier predict"
+    //% group="Classifier" weight=34
+    export function DinoAI_classifier_predict(): void {
+        let str = `K85`
+        serial.writeLine(str)
+    }
+
+    //% blockId=DinoAI_classifier_predict block="DinoAI Classifier output"
+    //% group="Classifier" weight=33
+    export function DinoAI_classifier_output(
+        handler: (output: string) => void
+    ) {
+        classifierOutputEvt = handler
+    }
+
+    /**
+     * @param s string: model savepath
+     */
+    //% blockId=DinoAI_classifier_save_model block="DinoAI Classifier save model in %s"
+    //% group="Classifier" weight=32
+    export function DinoAI_classifier_save_model(s:string): void {
+        let str = `K86 ${s}`
+        serial.writeLine(str)
+    }
+
+    /**
+     * @param s string: model savepath
+     */
+    //% blockId=DinoAI_classifier_load_model block="DinoAI Classifier load model from %s"
+    //% group="Classifier" weight=31
+    export function DinoAI_classifier_load_model(s:string): void {
+        let str = `K87 ${s}`
+        serial.writeLine(str)
     }
 }
