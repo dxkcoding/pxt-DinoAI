@@ -311,24 +311,23 @@ namespace DinoAI{
     /**
      * @param n number: set number
      */
-    //% blockId=DinoAI_classifier_config_setnumber block="DinoAI config Classifier: set number %n"
+    //% blockId=DinoAI_classifier_config_setnumber block="DinoAI config Classifier: set number %n |add tag %t"
     //% group="Classifier" weight=40
     //% n.min=1 n.max=5
-    export function DinoAI_classifier_config_setnumber(n:number): void {
-        let str = `K80 ${n}`
+    export function DinoAI_classifier_config_setnumber(n:number, t:string[]): void {
+        let str = `K80 ${n} ${t}`
         serial.writeLine(str)
     }
 
     /**
      * @param n number: sample number
      */
-    //% blockId=DinoAI_classifier_config_samplenumber block="DinoAI config Classifier: sample number %n | add tag %t"
+    //% blockId=DinoAI_classifier_config_samplenumber block="DinoAI config Classifier: sample number %n "
     //% group="Classifier" weight=39
     //% n.min=3 n.max=5
-    export function DinoAI_classifier_config_samplenumber(n:number, t:string[]): void {
-        let str = `K81 ${n} ${t}`
+    export function DinoAI_classifier_config_samplenumber(n:number): void {
+        let str = `K81 ${n}`
         serial.writeLine(str)  
-        
     }
 
     /**
