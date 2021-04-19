@@ -111,7 +111,7 @@ namespace DinoAI{
      **/
     //% blockId=dinoai_init block="DinoAI init"
     //% group="Basic" weight=100
-    export function DinoAI_init(): void {
+    export function dinoaiInit(): void {
         serial.redirect(SerialPin.P0, SerialPin.P1, BaudRate.BaudRate115200)
         basic.pause(100)
         serial.setTxBufferSize(64)
@@ -126,9 +126,9 @@ namespace DinoAI{
     /**
      * @param name jpeg to display; eg: name.jpg
      */
-    //% blockId=DinoAI_display block="DinoAI Display %name"
+    //% blockId=dinoai_display block="DinoAI Display %name"
     //% group="Basic" weight=99 blockGap=40
-    export function DinoAI_display(name: string): void {
+    export function dinoaiDisplay(name: string): void {
         let str = `K1 ${name}`
         serial.writeLine(str)
     }
@@ -136,16 +136,16 @@ namespace DinoAI{
     /**
      * @param name savepath; eg: name.jpg
      */
-    //% blockId=DinoAI_screenshot block="DinoAI Screenshot %name"
+    //% blockId=dinoai_screenshot block="DinoAI Screenshot %name"
     //% group="Basic" weight=98
-    export function DinoAI_screenshot(name: string): void {
+    export function dinoaiScreenshot(name: string): void {
         let str = `K2 ${name}`
         serial.writeLine(str)
     }
 
     //% blockId=DinoAI_clear block="DinoAI clear"
     //% group="Basic" weight=97
-    export function DinoAI_clear(): void {
+    export function dinoaiClear(): void {
         let str = `K3`
         serial.writeLine(str)
     }
@@ -158,7 +158,7 @@ namespace DinoAI{
     //% x.min=0 x.max=240
     //% y.min=0 y.max=240
     //% group="Basic" weight=96
-    export function DinoAI_print(t: string, x: number,y: number): void {
+    export function dinoaiPrint(t: string, x: number,y: number): void {
         let str = `K4 ${x} ${y} ${t}`
         serial.writeLine(str)
     }
@@ -169,7 +169,7 @@ namespace DinoAI{
     //% blockId=DinoAI_lcd_rotation block="DinoAI lcd rotation %dir"
     //% dir.min=0 dir.max=3
     //% group="Basic" weight=95
-    export function DinoAI_lcd_rotation(dir: number): void {
+    export function dinoaiLcdRotation(dir: number): void {
         let str = `K5 ${dir}` 
         serial.writeLine(str)
     }
@@ -179,21 +179,21 @@ namespace DinoAI{
      */
     //% blockId=DinoAI_lcd_mirror block="DinoAI lcd micrror %invert"
     //% group="Basic" weight=95
-    export function DinoAI_lcd_mirror(invert: LcdInvert): void {
+    export function dinoaiLcdMirror(invert: LcdInvert): void {
         let str = `K6 ${invert}` 
         serial.writeLine(str)
     }
 
     //% blockId=DinoAI_qrcode block="DinoAI QR code"
     //% group="Graphic" weight=79
-    export function DinoAI_qrcode() {
+    export function dinoaiQrcode() {
         let str = `K20`
         serial.writeLine(str)
     }
 
     //% blockId=DinoAI_onqrcode block="on QR code"
     //% group="Graphic" weight=78 draggableParameters=reporter blockGap=40
-    export function DinoAI_onqrcode(handler: (link: string) => void) {
+    export function dinoaiOnQrcode(handler: (link: string) => void) {
         qrcodeEvt = handler
     }
 
@@ -203,7 +203,7 @@ namespace DinoAI{
      */
     //% blockId=DinoAI_track_colorblob block="DinoAI track color blob %c"
     //% group="Graphic" weight=77
-    export function DinoAI_track_colorblob(c: ColorChoice): void {
+    export function dinoaiTrackColorblob(c: ColorChoice): void {
         let str = `K21 ${c}`
         serial.writeLine(str)
     }
@@ -322,7 +322,7 @@ namespace DinoAI{
     /**
      * @param n number: sample number
      */
-    //% blockId=DinoAI_classifier_config_samplenumber block="DinoAI config Classifier: sample number %n and add tag %t"
+    //% blockId=DinoAI_classifier_config_samplenumber block="DinoAI config Classifier: sample number %n | add tag %t"
     //% group="Classifier" weight=39
     //% n.min=3 n.max=5
     export function DinoAI_classifier_config_samplenumber(n:number, t:string[]): void {
