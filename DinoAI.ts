@@ -315,7 +315,8 @@ namespace DinoAI{
     //% group="Classifier" weight=40
     //% n.min=1 n.max=5
     export function DinoAI_classifier_config_setnumber(n:number, t:string[]): void {
-        let str = `K80 ${n} ${t}`
+        
+        let str = `K80 ${n}`
         serial.writeLine(str)
     }
 
